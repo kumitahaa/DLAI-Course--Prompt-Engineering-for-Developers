@@ -1,0 +1,174 @@
+=============================================================================================================
+===================================================Principles================================================
+=============================================================================================================
+
+==============================================Principle #2===================================================
+
+
+Context:
+    - Usually we write a prompt for the LLM and give ask it to analyze the input(input is other than prompt)
+    - The input is dynamic and changes every time.
+    - We have to design the prompt such that we get desired results from any kind of input
+            (if there is an input other than desired {out-of-box} we have to take care of it as well)
+
+Principle #1: Write clear and specific instructions
+
+    Tactics:
+        Tactic #1: "Use delimiters to clearly indicate distinct parts of the input"
+                - Delimiters mean a sign to specify "Limits" of the inout we need LLM to work on.
+                -For example, you might "" Qoutes, or ` Backs or anything like that.
+                -We can enclose it like "{text}" and in our prompt we can ask it to perform specific
+                        operation on it.
+        
+                                                --- Point to Ponder: ---
+                ------- "Input" and the "Prompt" are two different things. -------
+                ------- Prompt: the parameters we give to the LLM, the context, requirements and information
+                                to assess the input. -------
+                ------- Input: on the other hand is the text that needs to be assessed. -------
+
+
+        Tactic #2: "Ask for a structured output"
+                - A structured output means, formation of the response LLM returns.
+                - For example, Structure or Formattion can be Dict, Array, List, Json etc.
+                - It can also be paragraph, poem, sentence or "Bullet Points with "One-Line Explaination"
+
+        Tactic 3: "Instruct the model to check whether conditions are satisfied"
+                - Specify some conditions for the Input, so the LLM only assess it if it meets them, else ignores.
+                - You have specified your Output structure already, place conditions in such a manner that 
+                        the LLM only responds if the desired output can be created otherwise generates an Exception.
+                For example if prompt is supposed to contain Bio-data of person and you have to create profile
+                you can specify that it only responds if the prompt has specific entities for person like name,
+                profession and DOB.
+        
+        Tactic 4: "Few-Shots (Example Solution)"
+                - Provide the prompt with a sample or example of the desired Response
+                - Give it a sample, and ask to follow the same patterns, flow, style or design.
+                - For Example, if you want to generate JSON List for a person's data, you can give a 
+                        sample of a List for one or more People's Data created by yourself.
+
+==============================================Principle #1===================================================
+                    
+Context:
+        For complex problems, or problems where there is more computation and calculations are required,
+        the model should be gvien more time to process. However, if it Rushes to provide a response, 
+        jumps to a conclusion, it might be incorrect.
+        So we have to make a query which tells the model to take its time for processing, perform its
+        calculations, and then give us a fulfilled response.
+
+
+Principle 2: Give the model time to “think”
+        Tactic 1: Specify the steps required to complete a task
+                - Tell the LLM, what steps should it perform in order to get its result.
+                - Breakdown the task into smaller components and instruct to follow these steps.
+                - For example for a Complex Maths problem, break it into smaller, easier mathematical operations,
+                        and then perform ask to perform these steps in the order and show result afterwards.
+        
+        Tactic 2: Instruct the model to work out its own solution before rushing to a conclusion
+                 - When giving a prompt and requesting a response, tell the model to do self-analysis of the
+                        response. It means to perform its own check or calculate itself, to see if the response
+                        is right or not.
+                - It is like a background check, or calculation in background, and then compare the prompt it is
+                        going to give us, and see if that is right.
+                - For example giving a multi-choice question, instruct the model to compute the result for
+                        the question on its own first, solve the question itself, and then compare the result
+                        with the response it is going to give us and see if they match.
+
+
+=============================================================================================================
+===============================================Model Limitations=============================================
+=============================================================================================================
+
+        Hallucinations: It is when the model generates a realistic response, but it is acutally wrong.
+                        - For example, if you ask it for a story of crow written by Shakespear, it might make
+                                some thing up and give you that story.
+        
+                Reducing Hallucination:
+                        - One tactic is to instruct the model to find relevant information from its training
+                                and then answer based on that information.
+                        - In our example, we can instruct it to search for crow references in Shakespear's work
+                                and then see if Crow is the main character in the story, and if it is about
+                                the crow.
+
+=============================================================================================================
+=========================================Improvement in Prompt===============================================
+=============================================================================================================
+
+Iterative Development:
+        Iterative Development means enhancing and improving your prompt with repetition.
+        We all know, nothing is perfect, especially on the first attempt. So never expect your first prompt
+                to be perfect or perform the desired task with best results.
+                
+                Step in Iterative Development:
+                        There are a few steps we can follow for Writing a good prompt:
+                                1: Try Something: Write a draft and test it.
+                                2: Analyze the results: See the results and look how these are working.
+                                3: Clarify instructions: Based on analysis, clarify and make changes to make it better.
+                                4: Refine with examples: Add examples to let LLM understand better.
+
+==========================================================================================================
+===========================================CAPABILITIES of LLM============================================
+==========================================================================================================
+
+Summarizing:
+        - Summarizing is a task that can be performed by the LLM and which has a lot benefit in daily life
+                and professional fields as well.
+        - Basically, we ask the LLM, to extract information of our use from larger set of input data.
+        - There are a few things that we should keep in mind to get the best out of it:
+                1. We should tell length, how long or short, the summary should be.
+                2. We shoud specify the exact information we want to extract. (What we need)
+                3. We can also specify the purpose of the summary to get appropriate response.
+                4. We can state exactly what information to extract as well.
+
+        - In short, while summarizing, we have to define the purpose, length, requirements, and uses of the
+                response that we want it to generate.
+
+=============================================================================================================
+
+Inferring:
+        - In Prompt Engineering, inferring is to deduce or conclude a sentiment and topic, or some "abstract quality".
+        - To be more clear, we ask the model to sort the input into classes, choose from Binary operations
+                or tell us the "tone" or "topic" of the input.
+        - For example, we can input a school's note in student's diary and ask if its a warning, an invitation
+                message, or request.
+        - Another example is that we can ask to provide a title for the input paragraph. OR emotion of the writer
+                either its joy, calm, happy, angry, or sad.
+        
+        - It is usually a short response, one sentence, or a single word sometimes. It only specifies the
+                the type or category of the input.
+
+=============================================================================================================
+
+Transformation:
+        - Transformation is to change the shape of the input as a whole.
+        - We can trasnform the input and give it a totally new shape. We can change its "language, formatting,
+                grammar, tone, and utterance or the speaker"
+        - For example we can translate text from one language to other,  convert from JSON format to List,
+                trasnform from casual message to formal email and so on.
+
+=============================================================================================================
+
+Expanding:
+        - Expanding is the process of giving a shorter input and specific instructions to generate a longer
+                response from the LLM.
+        - We can give a brief note about something and ask the LLM to generate longer response, such as email,
+                essay, formal message or article.
+
+=============================================================================================================
+
+Temperature:
+        - It is the degree of "randomness" of the LLM's response.
+        - By randomness, we mean varying response on the same prompt, variety in the response while using same
+                prompt.
+
+                                        ---- Tid Bit: ----
+        ----- Temperature 0 is the least random, i.e., will, most likely provide same result on same prompt. -----
+
+        - For example, if we ask the LLM about favorite novel, or city or somethings of a "choice", there will be
+                some degree of randomness in the response.
+        - On Temperature 0, it will most likely be the same each time (with same prompt). By increasing it
+                you can make it provide variations each time.
+        
+        --- An important point to note it that Randomness is related to prompt. It is taken into account
+                for same prompt. You can obviously change response, or produce variety responses using different
+                prompt.
+        - For example if you specify action genre, it will choose a differnt novel than romance genre.
