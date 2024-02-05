@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT Prompt Engineering Notes</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        #content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-top: 30px;
+        }
+
+        .principle {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .context {
+            margin-top: 10px;
+            font-style: italic;
+            color: #666;
+            background-color: #d4e5f8;
+        }
+
+        .tactic {
+            margin-top: 10px;
+            list-style-type: none;
+        }
+
+        .tidbit {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            float: right;
+            width: 45%;
+            box-sizing: border-box;
+        }
+
+        .tidbit-header {
+            background-color: #e94e77;
+            color: #fff;
+            padding: 5px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .tidbit ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .tidbit ul li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="content">
+
+        <!-- Principles Section -->
+        <div class="section">
+            <div class="principle">Principles</div>
+
+            <!-- Principle #2 -->
+            <div class="context">Context:
+                - Usually, we write a prompt for the LLM and give ask it to analyze the input(input is other than prompt)
+                - The input is dynamic and changes every time.
+                - We have to design the prompt such that we get desired results from any kind of input
+                (if there is an input other than desired {out-of-box} we have to take care of it as well)
+            </div>
+            <ul class="tactic">
+                <li><b>Use delimiters to clearly indicate distinct parts of the input</b> <br/>
+                    <u><i>Delimiters mean a sign to specify "Limits" of the input we need LLM to work on.</i></u>
+                    <ul>
+                        <li>For example, you might "" Quotes or ` Backs or anything like that.</li>
+                        <li>We can enclose it like "{text}" and in our prompt we can ask it to perform a specific
+                            operation on it.</li>
+                    </ul>
+                </li>
+                <div class="tidbit">
+                    <div class="tidbit-header">Point to Ponder:</div>
+                    <ul>
+                        <li><u><b>"Input" and the "Prompt" are two different things.</b></u></li>
+                        <li><u><b>Prompt:</b></u> the parameters we give to the LLM, the context, requirements and information
+                            to assess the input.</li>
+                        <li><u><b>Input:</b></u> on the other hand is the text that needs to be assessed.</li>
+                    </ul>
+                </div>                
+                <li><b>Ask for a structured output</b> <br/>
+                    <u><i>A structured output means, the formation of the response LLM returns.</i></u>
+                    <ul>
+                        <li>For example, Structure or Formation can be Dict, Array, List, Json, etc.</li>
+                        <li>It can also be a paragraph, poem, sentence or "Bullet Points with "One-Line Explanation"
+                        </li>
+                    </ul>
+                </li>
+                <li><b>Instruct the model to check whether conditions are satisfied</b><br/>
+                    <u><i>Specify some conditions for the Input so the LLM only assesses it if it meets them, else
+                        ignores.</i></u>
+                    <ul>
+                        <li>You have specified your Output structure already, place conditions in such a manner that
+                            the LLM only responds if the desired output can be created otherwise generates an
+                            Exception.</li>
+                        <li>For example, if the prompt is supposed to contain Bio-data of a person and you have to
+                            create a profile you can specify that it only responds if the prompt has specific entities
+                            for a person like name, profession, and DOB.</li>
+                    </ul>
+                </li>
+                <li><b>Few-Shots (Example Solution)</b><br/>
+                    <u><i>Provide the prompt with a sample or example of the desired Response</i></u>
+                    <ul>
+                        <li>Give it a sample and ask to follow the same patterns, flow, style, or design.</li>
+                        <li>For Example, if you want to generate a JSON List for a person's data, you can give a
+                            sample of a List for one or more People's Data created by yourself.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- Principle #1 -->
+            <div class="context">Context:
+                For complex problems or problems where there is more computation and calculations are required,
+                the model should be given more time to process. However, if it Rushes to provide a response,
+                jumps to a conclusion, it might be incorrect.
+                So we have to make a query that tells the model to take its time for processing, perform its
+                calculations, and then give us a fulfilled response.
+            </div>
+            <ul class="tactic">
+                <li><b>Specify the steps required to complete a task</b> <br/>
+                    <u><i>Tell the LLM, what steps should it perform in order to get its result.</i></u>
+                    <ul>
+                        <li>Breakdown the task into smaller components and instruct to follow these steps.</li>
+                        <li>For example, for a Complex Maths problem, break it into smaller, easier mathematical operations,
+                            and then perform ask to perform these steps in order and show result afterwards.</li>
+                    </ul>
+                </li>
+                <li><b>Instruct the model to work out its own solution before rushing to a conclusion</b><br/>
+                    <u><i>When giving a prompt and requesting a response, tell the model to do self-analysis of the
+                            response.</i></u>
+                    <ul>
+                        <li>Perform its own check or calculate itself to see if the response is right or not.</li>
+                        <li>For example, giving a multi-choice question, instruct the model to compute the result for
+                            the question on its own first, solve the question itself, and then compare the result
+                            with the response it is going to give us and see if they match.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Model Limitations Section -->
+        <div class="section">
+            <div class="principle">Model Limitations</div>
+
+            <div class="tactic">
+                <b><u>Hallucinations:</u></b>
+                <u><i>It is when the model generates a realistic response, but it is actually wrong.</i></u>
+                <ul>
+                    <li><b>Reducing Hallucination:</b>
+                        <ul>
+                            <li>One tactic is to instruct the model to find relevant information from its training and then
+                                answer based on that information.</li>
+                            <li>In our example, we can instruct it to search for crow references in Shakespeare's work and
+                                then see if Crow is the main character in the story, and if it is about the crow.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Improvement in Prompt Section -->
+        <div class="section">
+            <div class="principle">Improvement in Prompt</div>
+            <div class="tactic">
+                <b><u>Iterative Development:</u></b>
+                <u><i>Iterative Development means enhancing and improving your prompt with repetition.</i></u></br>
+                <b><u>Step in Iterative Development:</u></b>
+                <ul>
+                    <li>Try Something: Write a draft and test it.</li>
+                    <li>Analyze the results: See the results and look how these are working.</li>
+                    <li>Clarify instructions: Based on analysis, clarify and make changes to make it better.</li>
+                    <li>Refine with examples: Add examples to let LLM understand better.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Capabilities of LLM Section -->
+        <div class="section">
+            <div class="principle">CAPABILITIES of LLM</div>
+
+            <!-- Summarizing -->
+            <div class="tactic">
+                <u><b>Summarizing:</b></u> <u><i>Summarizing is a task that can be performed by the LLM and which has a lot
+                    of benefits in daily life and professional fields as well.</i></u>
+                <ul>
+                    <li>We should tell the length, how long or short, the summary should be.</li>
+                    <li>We should specify the exact information we want to extract. (What we need)</li>
+                    <li>We can also specify the purpose of the summary to get an appropriate response.</li>
+                    <li>We can state exactly what information to extract as well.</li>
+                </ul>
+                In short, while summarizing, we have to define the purpose, length, requirements, and uses of the
+                response that we want it to generate.
+            </div>
+
+            <!-- Inferring -->
+            <div class="tactic">
+                <u><b>Inferring:</b></u> <u><i>In Prompt Engineering, inferring is to deduce or conclude a sentiment and topic,
+                    or some "abstract quality".</i></u>
+                <ul>
+                    <li>To be more clear, we ask the model to sort the input into classes, choose from Binary operations
+                        or tell us the "tone" or "topic" of the input.</li>
+                    <li>For example, we can input a school's note in a student's diary and ask if it's a warning, an invitation
+                        message, or request.</li>
+                    <li>Another example is that we can ask to provide a title for the input paragraph. OR emotion of the writer
+                        either it's joy, calm, happy, angry, or sad.</li>
+                    <li>It is usually a short response, one sentence, or a single word sometimes. It only specifies the
+                        type or category of the input.</li>
+                </ul>
+            </div>
+
+            <!-- Transformation -->
+            <div class="tactic">
+                <u><b>Transformation:</b></u> Transformation is to change the shape of the input as a whole.
+                <ul>
+                    <li>We can transform the input and give it a totally new shape. We can change its "language, formatting,
+                        grammar, tone, and utterance or the speaker"</li>
+                    <li>For example, we can translate text from one language to another, convert from JSON format to List,
+                        transform from a casual message to a formal email and so on.</li>
+                </ul>
+            </div>
+
+            <!-- Expanding -->
+            <div class="tactic">
+                <u><b>Expanding:</b></u> Expanding is the process of giving a shorter input and specific instructions to
+                generate a longer response from the LLM.
+                <ul>
+                    <li>We can give a brief note about something and ask the LLM to generate a longer
+                        response, such as an email, essay, formal message, or article.</li>
+                </ul>
+            </div>
+
+            <!-- Temperature -->
+            <div class="tactic">
+                <u><b>Temperature:</b></u> It is the degree of "randomness" of the LLM's response.
+                <ul>
+                    <li>By randomness, we mean varying responses on the same prompt, variety in the response while using the same
+                        prompt.</li>
+                    <div class="tidbit">
+                        <div class="tidbit-header">Tid Bit:</div>
+                        <ul>
+                            <li>Temperature 0 is the least random, i.e., will most likely provide the same result
+                                on the same prompt.</li>
+                        </ul>
+                    </div>
+                    <li>For example, if we ask the LLM about a favorite novel or city or something of a "choice", there will be
+                        some degree of randomness in the response.</li>
+                    <li>On Temperature 0, it will most likely be the same each time (with the same prompt). By increasing it
+                        you can make it provide variations each time.</li>
+                    <li><b>An important point to note</b> is that Randomness is related to the prompt. It is taken into account
+                        for the same prompt. You can obviously change the response or produce variety responses using different
+                        prompts.</li>
+                    <li>For example, if you specify the action genre, it will choose a different novel than the romance genre.</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
